@@ -1,0 +1,366 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "timestamp": true
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
+        },
+        "clash_api": {
+            "external_ui": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+            "external_controller": "0.0.0.0:9090",
+            "external_ui_download_detour": "direct",
+            "default_mode": "rule"
+        }
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "google",
+                "address": "tls://8.8.8.8",
+                "detour": "Proxy"
+            },
+            {
+                "tag": "fallback",
+                "address": "8.8.8.8",
+                "address_resolver": "google",
+                "detour": "Proxy"
+            },
+            {
+                "tag": "local-dns",
+                "address": "223.5.5.5",
+                "detour": "direct"
+            },
+            {
+                "tag": "block-dns",
+                "address": "rcode://success"
+            },
+            {
+                "tag": "Youtubedns",
+                "address": "8.8.8.8",
+                "detour": "Youtube"
+            },
+            {
+                "tag": "Telegramdns",
+                "address": "8.8.8.8",
+                "detour": "Telegram"
+            },
+            {
+                "tag": "Openaidns",
+                "address": "8.8.8.8",
+                "detour": "Openai"
+            },
+            {
+                "tag": "Netflixdns",
+                "address": "8.8.8.8",
+                "detour": "Netflix"
+            },
+            {
+                "tag": "Directdns",
+                "address": "8.8.8.8",
+                "detour": "Direct"
+            }
+        ],
+        "rules": [
+            {
+                "outbound": "any",
+                "server": "local-dns"
+            },
+            {
+                "rule_set": [
+                    "Youtube0"
+                ],
+                "server": "Youtubedns"
+            },
+            {
+                "rule_set": [
+                    "Telegram1"
+                ],
+                "server": "Telegramdns"
+            },
+            {
+                "rule_set": [
+                    "Openai0"
+                ],
+                "server": "Openaidns"
+            },
+            {
+                "rule_set": [
+                    "Netflix0"
+                ],
+                "server": "Netflixdns"
+            },
+            {
+                "rule_set": [
+                    "Direct1"
+                ],
+                "server": "local-dns"
+            },
+            {
+                "query_type": [
+                    "A"
+                ],
+                "rewrite_ttl": 1,
+                "server": "fallback"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 8888,
+            "sniff": true
+        },
+        {
+            "type": "tproxy",
+            "tag": "tproxy-in",
+            "listen": "::",
+            "listen_port": 9888,
+            "sniff_override_destination": true,
+            "sniff": true
+        },
+        {
+            "type": "direct",
+            "listen": "::",
+            "listen_port": 53,
+            "sniff": true,
+            "tag": "dns-in"
+        }
+    ],
+    "route": {
+        "rule_set": [
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Youtube0",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Telegram0",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Telegram1",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Openai0",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Netflix0",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Netflix1",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Direct0",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/cn.srs"
+            },
+            {
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "direct",
+                "tag": "Direct1",
+                "url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs"
+            }
+        ],
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns-out"
+            },
+            {
+                "port": 53,
+                "outbound": "dns-out"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "port": 853
+                    },
+                    {
+                        "network": "udp",
+                        "port": 443
+                    },
+                    {
+                        "protocol": "stun"
+                    }
+                ],
+                "outbound": "block"
+            },
+            {
+                "rule_set": [
+                    "Youtube0"
+                ],
+                "outbound": "Youtube"
+            },
+            {
+                "rule_set": [
+                    "Telegram0",
+                    "Telegram1"
+                ],
+                "outbound": "Telegram"
+            },
+            {
+                "rule_set": [
+                    "Openai0"
+                ],
+                "outbound": "Openai"
+            },
+            {
+                "rule_set": [
+                    "Netflix0",
+                    "Netflix1"
+                ],
+                "outbound": "Netflix"
+            },
+            {
+                "rule_set": [
+                    "Direct0",
+                    "Direct1"
+                ],
+                "outbound": "direct"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "Proxy"
+    },
+    "outbounds": [
+        {
+            "tag": "Proxy",
+            "outbounds": [
+                "自动选择",
+                "香港",
+                "日本",
+                "美国",
+                "俄罗斯",
+                "英国",
+                "新加坡"
+            ],
+            "interrupt_exist_connections": true,
+            "type": "selector",
+            "default": "自动选择"
+        },
+        {
+            "type": "urltest",
+            "tag": "自动选择",
+            "outbounds": [],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": "1m",
+            "tolerance": 50
+
+        },
+        {
+            "type": "selector",
+            "tag": "香港",
+            "outbounds": []
+        },
+        {
+            "type": "selector",
+            "tag": "日本",
+            "outbounds": []
+        },
+        {
+            "type": "selector",
+            "tag": "美国",
+            "outbounds": []
+        },
+        {
+            "type": "selector",
+            "tag": "俄罗斯",
+            "outbounds": []
+        },
+        {
+            "type": "selector",
+            "tag": "英国",
+            "outbounds": []
+        },
+        {
+            "type": "selector",
+            "tag": "新加坡",
+            "outbounds": []
+        },
+        {
+            "tag": "Youtube",
+            "outbounds": [
+                "Proxy"
+            ],
+            "interrupt_exist_connections": true,
+            "type": "selector"
+        },
+        {
+            "tag": "Telegram",
+            "outbounds": [
+                "Proxy"
+            ],
+            "interrupt_exist_connections": true,
+            "type": "selector"
+        },
+        {
+            "tag": "Openai",
+            "outbounds": [
+                "Proxy"
+            ],
+            "interrupt_exist_connections": true,
+            "type": "selector"
+        },
+        {
+            "tag": "Netflix",
+            "outbounds": [
+                "Proxy"
+            ],
+            "interrupt_exist_connections": true,
+            "type": "selector"
+        },
+        {
+            "type": "direct",
+            "tag": "➜ Direct"
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        }
+    ]
+}
