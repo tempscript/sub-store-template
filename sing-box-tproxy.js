@@ -16,30 +16,19 @@ let proxies = await produceArtifact({
 config.outbounds.push(...proxies)
 
 config.outbounds.map(i => {
-  if (['自动选择'].includes(i.tag)) {
+  if (['♻️ 自动选择'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies))
   }
-  if (['香港'].includes(i.tag)) {
+  if (['🇭🇰 香港节点'].includes(i.tag) || ['🔯 香港自动'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|🇭🇰/i))
   }
-  if (['台湾'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /台|tw|taiwan|🇹🇼/i))
-  }
-  if (['日本'].includes(i.tag)) {
+  if (['🇯🇵 日本节点'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /日本|jp|japan|🇯🇵/i))
   }
-  if (['新加坡'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /^(?!.*(?:sg)).*(新|sg|singapore|🇸🇬)/i))
-  }
-  if (['美国'].includes(i.tag)) {
+  if (['🇺🇲 美国节点'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /美|us|unitedstates|united states|🇺🇸/i))
   }
-  if (['英国'].includes(i.tag)) { 
-    i.outbounds.push(...getTags(proxies, /英|uk|🇬🇧/i))
-  }
-  if (['俄罗斯'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /俄|ru/i))
-  }
+ 
 })
 
 config.outbounds.forEach(outbound => {
