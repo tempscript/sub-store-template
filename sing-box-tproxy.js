@@ -19,6 +19,9 @@ config.outbounds.map(i => {
   if (['♻️ 自动选择'].includes(i.tag) || ['🐸 手动切换'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies))
   }
+  if(['🐸 手动切换'].includes(i.tag)){
+    i.outbounds.push(...getTags(proxies))
+  }
   if (['🇭🇰 香港节点'].includes(i.tag) || ['🔯 香港自动'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|🇭🇰/i))
   }

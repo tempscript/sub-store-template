@@ -280,7 +280,10 @@
         {
             "tag": "GLOBAL",
             "type": "selector",
-            "outbounds": []
+            "outbounds": [
+                "🚀 节点选择",
+                "🎯 全球直连"
+            ]
         },
         {
             "tag": "🎯 全球直连",
