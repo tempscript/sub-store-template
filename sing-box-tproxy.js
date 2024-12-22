@@ -18,15 +18,27 @@ config.outbounds.push(...proxies)
 config.outbounds.map(i => {
   if (['♻️ 自动选择'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies))
+    if('filter' in i){
+      delete i.filter
+    }
   }
   if (['🇭🇰 香港节点'].includes(i.tag) || ['🔯 香港自动'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|🇭🇰/i))
+    if('filter' in i){
+      delete i.filter
+    }
   }
   if (['🇯🇵 日本节点'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /日本|jp|japan|🇯🇵/i))
+    if('filter' in i){
+      delete i.filter
+    }
   }
   if (['🇺🇲 美国节点'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /美|us|unitedstates|united states|🇺🇸/i))
+    if('filter' in i){
+      delete i.filter
+    }
   }
  
 })
