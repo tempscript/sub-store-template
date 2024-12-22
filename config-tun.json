@@ -77,9 +77,10 @@
       { "tag": "🐠 漏网之鱼", "type": "selector", "outbounds": ["🚀 节点选择","🎯 全球直连"] },
       { "tag": "🐸 手动切换", "type": "selector", "outbounds": []},
       { "tag": "🇭🇰 香港节点", "type": "selector", "outbounds": [] },
+      { "tag": "🇺🇲 美国节点", "type": "selector", "outbounds": []},
       { "tag": "🇯🇵 日本节点", "type": "selector", "outbounds": [] },
-      { "tag": "🔯 香港自动", "type": "urltest", "outbounds": [],"url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
-      { "tag": "♻️ 自动选择", "type": "urltest", "outbounds": [], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
+      { "tag": "🔯 香港自动", "type": "urltest", "outbounds": [], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
+      { "tag": "♻️ 自动选择", "type": "urltest", "outbounds": [],  "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50 },
       { "tag": "GLOBAL", "type": "selector", "outbounds": []},
       { "tag": "🎯 全球直连", "type": "direct" },
       { "tag": "dns-out", "type": "dns" }
